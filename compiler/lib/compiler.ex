@@ -6,7 +6,7 @@ defmodule Compiler do
   @doc """
   Hello world.
 
-  ## Examples
+  ## Examples compilers
 
   """
   def main(_args) do
