@@ -3,7 +3,7 @@ defmodule Compiler do
   Documentation for `Compiler`.
   """
 @commands %{
-    "help" => "Prints this help"
+    "h" => "Prints this help",
   }
 
   def main(args) do
@@ -13,17 +13,18 @@ defmodule Compiler do
   end
 
   def parse_args(args) do
-    OptionParser.parse(args, switches: [help: :boolean])
+    OptionParser.parse(args, switches: [h: :boolean])
   end
-  defp process_args({[help: true], _, _}) do
-    print_help_message()
+
+  defp process_args({[h: true], _, _}) do
+    init_help()
   end
 
   defp process_args({_, [file_name], _}) do
     compile_file(file_name)
   end
 
- defp compile_file(file_path) do
+  defp compile_file(file_path) do
     IO.puts("Compiling file: " <> file_path)
     assembly_path = String.replace_trailing(file_path, ".c", ".s")
 
@@ -38,14 +39,14 @@ defmodule Compiler do
 
       if is_map(astTree) do
         astTree
-        |> CodeGenerator.generate_code(astTree,file_path,:gen_asm)
+        |> CodeGenerator.generate_code()
         |> Linker.generate_binary(assembly_path)
         |> IO.inspect()
       end
 
       if is_tuple(astTree) do
         IO.puts("Syntax Error")
-        {,,error_line,atom} = astTree
+        {_,_,error_line,atom} = astTree
         error_line = to_string(error_line+1)
         error_reason = to_string(atom)
         error_message = "Error:  " <> error_line <> " : "<> error_reason
@@ -96,12 +97,13 @@ end
     []
   end
 
-  defp print_help_message do
-    IO.puts("\nnqcc --help file_name \n")
+  defp init_help do
+    IO.puts("\nnqcc --h file_name \n")
 
     IO.puts("\nThe compiler supports following options:\n")
 
     @commands
     |> Enum.map(fn {command, description} -> IO.puts("  #{command} - #{description}") end)
   end
+
 end
