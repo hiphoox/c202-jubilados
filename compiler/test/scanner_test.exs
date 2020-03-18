@@ -25,10 +25,131 @@ setup_all do
            return 2;
     }
     """
-
     s_code = Compiler.clean_code(code) 
     assert Scanner.scan_words(s_code) == state[:tokens]
   end	
 
+  test "spacetest", state do
+    code = """"""
+      int  main    ()   {   return     0;}
+      """"""
+    s_code = Compiler.clean_code(code) 
+    assert Scanner.scan_words(s_code) == state[:tokens]
+  end
+
+    test "return 0", state do
+    code = """"""
+      int main() {
+        return 0;
+      }
+      """"""
+    s_code = Compiler.clean_code(code) 
+    assert Scanner.scan_words(s_code) == state[:tokens]
+  end   
+  
+  test "return 2", state do
+    code = """"""
+      int main() {
+        return 2;
+      }
+      """"""
+    s_code = Compiler.clean_code(code) 
+    assert Scanner.scan_words(s_code) == state[:tokens]
+  end   
+  
+  test "newlines_no", state do
+    code = """"""
+      int main(){return 0;}
+      """"""
+    s_code = Compiler.clean_code(code) 
+    assert Scanner.scan_words(s_code) == state[:tokens]
+  end   
+  
+  test "new_lines", state do
+    code = """"""
+      int
+      main
+      (
+      )
+      {
+      return
+      0
+      ;
+      }
+      """"""
+    s_code = Compiler.clean_code(code) 
+    assert Scanner.scan_words(s_code) == state[:tokens]
+  end   
+  
+  test "multi_digit", state do
+    code = """"""
+      int main() {
+        return 100;
+      }
+      """"""
+    s_code = Compiler.clean_code(code) 
+    assert Scanner.scan_words(s_code) == state[:tokens]
+  end 
+
+  ## Test
+  ## Invalid
+  test "wrong_case", state do
+    code = """"""
+      int main() {
+        RETURN 0;
+      }
+      """"""
+    s_code = Compiler.clean_code(code) 
+    assert Scanner.scan_words(s_code) == state[:tokens]
+  end
+  
+  test "no_space", state do
+    code = """"""
+      int main() {
+        return0;
+      }
+      """"""
+    s_code = Compiler.clean_code(code) 
+    assert Scanner.scan_words(s_code) == state[:tokens]
+  end   
+  
+  test "no_semicolon", state do
+    code = """"""
+      int main() {
+        return 0
+      }
+      """"""
+    s_code = Compiler.clean_code(code) 
+    assert Scanner.scan_words(s_code) == state[:tokens]
+  end   
+  
+  test "no_brace", state do
+    code = """"""
+      int main {
+        return 0;
+      """"""
+    s_code = Compiler.clean_code(code) 
+    assert Scanner.scan_words(s_code) == state[:tokens]
+  end   
+  
+  test "missing_retval", state do
+    code = """"""
+      int main() {
+        return;
+      }
+      """"""
+    s_code = Compiler.clean_code(code) 
+    assert Scanner.scan_words(s_code) == state[:tokens]
+  end   
+  
+  test "missing_parent", state do
+    code = """"""
+      int main( {
+        return 0;
+      }
+      """"""
+    s_code = Compiler.clean_code(code) 
+    assert Scanner.scan_words(s_code) == state[:tokens]
+  end
 
 end
