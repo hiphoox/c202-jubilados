@@ -24,7 +24,7 @@ defmodule Compiler do
     compile_file(file_name)
   end
 
-  defp compile_file(file_path) do
+  def compile_file(file_path) do
     IO.puts("Compiling file: " <> file_path)
     assembly_path = String.replace_trailing(file_path, ".c", ".s")
 
@@ -62,7 +62,7 @@ defmodule Compiler do
     end
 end  
 
-  defp clean_code(file_content) do
+  def clean_code(file_content) do
     divide_code = String.trim(file_content)
     clean_words = Regex.split(~r/\n/,divide_code)
     counter = 0
