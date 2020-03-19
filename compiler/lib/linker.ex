@@ -1,5 +1,6 @@
 defmodule Linker do
-  def generate_binary(assembler, assembly_path) do
+  def binary_output(assembler, flag, assembly_path) do
+    IO.puts("assembler")
   	assembly_path = String.replace_trailing(assembly_path, ".c", ".s")
     assembly_file_name = Path.basename(assembly_path)
     binary_file_name = Path.basename(assembly_path, ".s")
@@ -10,7 +11,8 @@ defmodule Linker do
     File.write!(assembly_path, assembler)
     System.cmd("gcc", [binary_file_name <> ".c", "-o#{binary_file_name}"], cd: output_dir_name)
 
-    File.rm!(assembly_path)
+    compile = File.rm!(assembly_path)
+    {:ok, compile} 
   end
 
 end
