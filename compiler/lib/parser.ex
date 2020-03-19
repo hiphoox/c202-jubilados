@@ -1,20 +1,24 @@
 defmodule Parser do
-  def parse_program(token_list) do
-    function = parse_function(token_list, 0)
-    case function do
-      {{:error, error_message, line, problema}, _rest} ->
-        {:error, error_message, line, problema}
-
-      {function_node, rest} ->
-        if rest == [] do
-          %AST{node_name: :program, left_node: function_node}
-        else
-          {:error, "Error: there are more elements after function end", 0, "more elements"}
-        end
+  def init_parse(token_list, flag) do
+   result = evaluator_lexer(token_list)
+   if result == [] do
+   astTree = token_list
+   output = parse_function(astTree,0)
+   case output do
+      {{:error, error_message, line, problema}, _rest} -> print_error({:error, error_message, line, problema})
+      {function_node, rest} -> parsing_flag(%AST{node_name: :program, left_node: function_node}, flag)
+    end
+    else
+      IO.puts("Lexical Error:")
+      [_,word_error,line] = result
+      error_line = to_string(line+1)
+      error_message = "Error: " <> error_line <> ":is not expected: " <> word_error
+      {:error, error_message}
     end
   end
 
-  def parse_function([{next_token, num_line} | rest], counter) do
+  def parse_function([{next_token, num_line}| rest], counter) do
+    IO.inspect(next_token)
     if rest != [] do
       case counter do
         0->
@@ -22,28 +26,28 @@ defmodule Parser do
             counter = counter+1
             parse_function(rest, counter)
           else
-            {{:error, "Error 1", num_line, next_token},rest}
+            {{:error, "Error 1" , num_line , next_token},rest}
           end
         1->
           if next_token == :main_keyword do
             counter = counter+1
             parse_function(rest, counter)
           else
-            {{:error, "Error, 2", num_line, next_token}, rest}
+            {{:error, "Error 2", num_line, next_token}, rest}
           end
         2->
           if next_token == :open_paren do
             counter = counter+1
             parse_function(rest, counter)
           else
-            {{:error, "Error, 3 ", num_line, next_token},rest}
+            {{:error, "Error 3 ", num_line, next_token},rest}
           end
         3->
           if next_token == :close_paren do
             counter = counter+1
             parse_function(rest, counter)
           else
-            {{:error, "Error, 4 ", num_line, next_token},rest}
+            {{:error, "Error 4 ", num_line, next_token},rest}
           end
         4->
           if next_token == :open_brace do
@@ -92,5 +96,36 @@ defmodule Parser do
       {:constant, value} -> {%AST{node_name: :constant, value: value}, rest}
       _ -> {{:error, "Error: constant value missed in line", num_line, next_token}, rest}
     end
+  end
+
+  defp print_error (astTree) do
+    {_,_,error_line,atom} = astTree
+    error_line = to_string(error_line+1)
+    error_reason = to_string(atom)
+    error_message = "Error:  " <> error_line <> " : "<> error_reason
+    {:error, error_message}
+  end
+
+    def parsing_flag(ast, flag) do
+      if flag == :show_ast do
+        IO.inspect(ast)
+        {:ast, ast}
+      else
+        {:ok, ast}
+      end
+    end
+
+    def evaluator_lexer(tokens_list) when tokens_list != [] do
+      head= hd tokens_list
+      tail= tl tokens_list
+      if is_list(head) do
+        head
+      else
+        evaluator_lexer(tail)
+      end
+  end
+
+  def evaluator_lexer(tokens_list)  do
+    []
   end
 end
