@@ -23,6 +23,7 @@ defmodule Scanner do
 
   def find_tokens({program,line}) when program != "" do
     line_keyword = line
+    IO.inspect({program,line})
     {token, rest} =
       case program do
         "{" <> rest -> {{:open_brace,line_keyword}, rest}
@@ -30,12 +31,15 @@ defmodule Scanner do
         "(" <> rest -> {{:open_paren,line_keyword}, rest}
         ")" <> rest -> {{:close_paren,line_keyword}, rest}
         ";" <> rest -> {{:semicolon, line_keyword}, rest}
+        "-" <> rest -> {{:neg_operator, line_keyword}, rest}
+        "!" <> rest -> {{:logical_neg_operator, line_keyword}, rest}
+        "~" <> rest -> {{:bitwise_operator, line_keyword}, rest}
         "return" <> rest -> {{:return_keyword, line_keyword}, rest}
         "int" <> rest -> {{:int_keyword, line_keyword}, rest}
         "main" <> rest -> {{:main_keyword, line_keyword}, rest}
         :error -> {:error, nil}
         rest -> get_constant(rest,line)
-        end
+       end
         aux_token = {rest,line}
         remaining_tokens = find_tokens(aux_token)
         [token | remaining_tokens]
@@ -55,5 +59,6 @@ defmodule Scanner do
       {["ERROR: not found return value", remain_string, line], ""}
       {:error, "invalid return value"}
     end
-  end
+   end 
+   
 end
