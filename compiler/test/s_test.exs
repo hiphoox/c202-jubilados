@@ -133,6 +133,32 @@ defmodule ScannerTest do
      {:semicolon, 1},
      {:close_brace, 2}
      ]},
+
+     tokens8: {:ok,[
+     {:int_keyword, 0}, 
+     {:main_keyword, 0}, 
+     {:open_paren, 0}, 
+     {:close_paren, 0}, 
+     {:open_brace, 0}, 
+     {:return_keyword, 1},  
+     {:semicolon, 1},
+     {:close_brace, 2}
+     ]},
+
+     tokens9: {:ok,[
+     {:int_keyword, 0}, 
+     {:main_keyword, 0}, 
+     {:open_paren, 0}, 
+     {:close_paren, 0}, 
+     {:open_brace, 0}, 
+     {:return_keyword, 1}, 
+     {:neg_operator, 1},
+     {:neg_operator, 1},
+     {{:constant, 5}, 1}, 
+     {:semicolon, 1},
+     {:close_brace, 2}
+     ]}
+
      }
     end
     
@@ -154,13 +180,13 @@ defmodule ScannerTest do
 		}
     """
     s_code = Compiler.clean_code(code) 
-    assert Scanner.start_scan(s_code, :no_output) == state[:tokens]
+    assert Scanner.start_scan(s_code, :no_output) == state[:tokens0]
   end
 
   test "Test 3. Spaces", state do
     code = """
     	   int                    main           (            )         {   
-       			return             2           ; 
+       			return             0           ; 
     		}
     """
     s_code = Compiler.clean_code(code) 
@@ -261,24 +287,6 @@ defmodule ScannerTest do
     assert Scanner.start_scan(s_code, :no_output) == state[:tokens] or state[:tokens1]
   end
 
-   test "Test 13. Missing close brace ", state do
-    code = """
-     	int main {
-    		return 0;
-    """
-    s_code = Compiler.clean_code(code) 
-    assert Scanner.start_scan(s_code, :no_output) == state[:tokens]
-
-  test "Test 14. Missing open paren", state do
-    code = """
-     	int main( {
-    		return 0;
-    	}
-    """
-    s_code = Compiler.clean_code(code) 
-    assert Scanner.start_scan(s_code, :no_output) == state[:tokens]
-  end
-
   test "Test 15. Missing retval", state do
     code = """
      	int main() {
@@ -286,7 +294,7 @@ defmodule ScannerTest do
     	}
     """
     s_code = Compiler.clean_code(code) 
-    assert Scanner.start_scan(s_code, :no_output) == state[:tokens] or
+    assert Scanner.start_scan(s_code, :no_output) == state[:tokens8]
   end
 
   test "Test 16. Missing semicolon", state do
@@ -337,6 +345,6 @@ defmodule ScannerTest do
 		}
     """
     s_code = Compiler.clean_code(code) 
-    assert Scanner.start_scan(s_code, :no_output) == state[:tokens1] 
+    assert Scanner.start_scan(s_code, :no_output) == state[:tokens9] 
   end  
 end
