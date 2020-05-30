@@ -50,24 +50,54 @@ defmodule CodeGenerator do
   def emit_code(:negation, code_snippet, _) do
     code_snippet <>
       """
-          neg	%eax
+          neg	  %eax
       """
   end
 
   def emit_code(:bitwise, code_snippet, _) do
     code_snippet <>
       """
-          not	%eax
+          not	  %eax
       """
   end
 
   def emit_code(:logical_negation, code_snippet, _) do
     code_snippet <>
       """
-      cmpl      #{code_snippet}, %eax
-      movl      #{code_snippet}, %eax
-      sete     %al
+          cmpl  #{code_snippet}, %eax
+          movl  #{code_snippet}, %eax
+          sete  %al
       """
+  end
+
+  def emit_code(:addition, _code_snippet, _) do
+    """
+          push  %rax
+          pop   %rcx
+          addl  %ecx, %eax
+    """
+  end
+
+  def emit_code(:multiplication, _code_snippet, _) do
+    """
+          push  %rax
+          pop   %rcx
+          imul  %ecx, %eax
+    """
+  end
+
+  def emit_code(:substraction, _code_snippet, _) do
+    """
+          push  %rax
+          pop   %rcx
+          subl  %ecx, %eax
+    """
+  end
+
+  def emit_code(:division, _code_snippet, _) do
+    """
+          idivl  %ecx
+    """
   end
 
   def emit_code(:constant, _code_snippet, value) do

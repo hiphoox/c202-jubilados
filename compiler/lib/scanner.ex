@@ -34,6 +34,9 @@ defmodule Scanner do
         "-" <> rest -> {{:neg_operator, line_keyword}, rest}
         "!" <> rest -> {{:logical_neg_operator, line_keyword}, rest}
         "~" <> rest -> {{:bitwise_operator, line_keyword}, rest}
+        "+" <> rest -> {{:add_operator, line_keyword}, rest}
+        "*" <> rest -> {{:mult_operator, line_keyword}, rest}
+        "/" <> rest -> {{:div_operator, line_keyword}, rest}
         "return" <> rest -> {{:return_keyword, line_keyword}, rest}
         "int" <> rest -> {{:int_keyword, line_keyword}, rest}
         "main" <> rest -> {{:main_keyword, line_keyword}, rest}
