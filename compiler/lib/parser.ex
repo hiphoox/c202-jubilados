@@ -71,7 +71,7 @@ defmodule Parser do
       end
   end
 
-  def parse_statement([{next_token, num_line} | rest]) do
+    def parse_statement([{next_token, num_line} | rest]) do
     if next_token == :return_keyword do
       expression = parse_expression(rest)
 
