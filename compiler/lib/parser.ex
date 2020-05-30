@@ -134,6 +134,41 @@ defmodule Parser do
         factor
     end
   end
+  
+  def parse_factor([{next_token, num_line} | rest]) do
+    case next_token do
+      :open_paren ->  
+        if next_token == :open_paren do
+          expression = parse_expression(rest)
+          case expression do
+              {{:error, error_message, num_line, next_token}, rest} ->
+                  {{:error, error_message, num_line, next_token}, rest}
+
+              {exp_node, [{next_token,num_line} | rest]} ->
+                  if next_token == :close_paren do
+                    {exp_node, rest}
+                  else
+                    express = parse_expression(rest)
+                    {node_expression,exp_rest} = expression
+                    {node,[{next_token,num_line} | rest]} = exp_rest
+                    {%AST{node_expression | left_node: node}, rest}
+                  end
+          end
+        else
+          {{:error, "Error: factor '(' ",num_line,next_token}, rest}
+        end
+        :neg_operator ->  
+          parse_unary_op([{next_token, num_line} | rest])
+        :bitwise_operator -> 
+          parse_unary_op([{next_token, num_line} | rest])
+        :logical_neg_operator ->
+          parse_unary_op([{next_token, num_line} | rest])
+        {:constant, value} -> 
+          {%AST{node_name: :constant, value: value}, rest}
+        _ -> 
+          {{:error, "Error: incomplete factor", num_line, next_token}, rest}
+    end    
+  end
 
   def parse_unary_op([{next_token, num_line}| rest]) do
   	case next_token do
