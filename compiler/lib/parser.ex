@@ -91,6 +91,28 @@ defmodule Parser do
     end
   end
 
+ def parse_expression([{next_token, num_line} | rest]) do
+    term = parse_term([{next_token, num_line} | rest])
+    {expression_node, term_rest} = term
+    [{next_token, num_line} | rest] = term_rest
+    case next_token do
+      :add_operator ->
+          subTree = %AST{node_name: :addition}
+          parse_op = parse_expression(rest)
+          {node,parse_rest} = parse_op
+          [{next_token,num_line} | rest_op] = parse_rest
+          {%{subTree | left_node: expression_node , right_node: node}, parse_rest}
+      :neg_operator -> 
+          subTree = %AST{node_name: :substraction}
+          parse_op = parse_expression(rest)
+          {node,parse_rest} = parse_op
+          [{next_token,num_line} | rest_op] = parse_rest
+          {%{subTree | left_node: expression_node , right_node: node}, parse_rest}
+      _ -> 
+        term
+    end
+  end
+
   def parse_expression([{next_token, num_line} | rest]) do
     case next_token do
       {:constant, value} -> {%AST{node_name: :constant, value: value}, rest}
