@@ -113,13 +113,25 @@ defmodule Parser do
     end
   end
 
-  def parse_expression([{next_token, num_line} | rest]) do
+  def parse_term([{next_token, num_line} | rest]) do
+    factor = parse_factor([{next_token, num_line} | rest])
+    {expression_node, factor_rest} = factor
+    [{next_token, num_line} | rest] = factor_rest
     case next_token do
-      {:constant, value} -> {%AST{node_name: :constant, value: value}, rest}
-      :neg_operator -> parse_unary_op([{next_token, num_line} | rest])
-      :bitwise_operator -> parse_unary_op([{next_token, num_line} | rest])
-      :logical_neg_operator -> parse_unary_op([{next_token, num_line} | rest])
-      _ -> {{:error, "Error: constant value missed in line", num_line, next_token}, rest}
+      :mult_operator ->
+          subTree = %AST{node_name: :multiplication}
+          parse_op = parse_expression(rest)
+          {node,parse_rest} = parse_op
+          [{next_token,num_line} | rest_op] = parse_rest
+          {%{subTree | left_node: expression_node , right_node: node}, parse_rest}
+      :div_operator -> 
+          subTree = %AST{node_name: :division}
+          parse_op = parse_expression(rest)
+          {node,parse_rest} = parse_op
+          [{next_token,num_line} | rest_op] = parse_rest
+          {%{subTree | left_node: expression_node , right_node: node}, parse_rest}
+      _ -> 
+        factor
     end
   end
 
