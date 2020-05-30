@@ -86,6 +86,24 @@ defmodule CodeGenerator do
     """
   end
 
+  def emit_code(:substraction, _code_snippet, _) do
+    """
+          push  %rax
+          pop   %rcx
+          subl  %ecx, %eax
+    """
+  end
+
+  def emit_code(:division, _code_snippet, _) do
+    """
+          idivl  %ecx
+    """
+  end
+
+  def emit_code(:constant, _code_snippet, value) do
+    "$#{value}"
+  end
+
   def parsing_flag(asm, flag) do
     if flag == :show_asm do
       IO.puts("\nCode Generator output:")
