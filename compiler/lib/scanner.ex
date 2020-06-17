@@ -26,17 +26,21 @@ defmodule Scanner do
     IO.inspect({program,line})
     {token, rest} =
       case program do
-        "{" <> rest -> {{:open_brace,line_keyword}, rest}
-        "}" <> rest -> {{:close_brace,line_keyword}, rest}
-        "(" <> rest -> {{:open_paren,line_keyword}, rest}
-        ")" <> rest -> {{:close_paren,line_keyword}, rest}
-        ";" <> rest -> {{:semicolon, line_keyword}, rest}
-        "-" <> rest -> {{:neg_operator, line_keyword}, rest}
-        "!" <> rest -> {{:logical_neg_operator, line_keyword}, rest}
-        "~" <> rest -> {{:bitwise_operator, line_keyword}, rest}
-        "+" <> rest -> {{:add_operator, line_keyword}, rest}
-        "*" <> rest -> {{:mult_operator, line_keyword}, rest}
-        "/" <> rest -> {{:div_operator, line_keyword}, rest}
+        "{"  <> rest  -> {{:open_brace, line_keyword}, rest}
+        "}"  <> rest  -> {{:close_brace, line_keyword}, rest}
+        "("  <> rest  -> {{:open_paren, line_keyword}, rest}
+        ")"  <> rest  -> {{:close_paren, line_keyword}, rest}
+        ";"  <> rest  -> {{:semicolon, line_keyword}, rest}
+        "-"  <> rest  -> {{:neg_operator, line_keyword}, rest}
+        "&&" <> rest  -> {{:and_operator, line_keyword},rest}
+        "||" <> rest  -> {{:or_operator, line_keyword},rest}
+        "==" <> rest  -> {{:equal_operator, line_keyword},rest}
+        "!=" <> rest  -> {{:not_equal_operator, line_keyword},rest}
+        "!"  <> rest  -> {{:logical_neg_operator, line_keyword}, rest}
+        "~"  <> rest  -> {{:bitwise_operator, line_keyword}, rest}
+        "+"  <> rest  -> {{:add_operator, line_keyword}, rest}
+        "*"  <> rest  -> {{:mult_operator, line_keyword}, rest}
+        "/"  <> rest  -> {{:div_operator, line_keyword}, rest}
         "return" <> rest -> {{:return_keyword, line_keyword}, rest}
         "int" <> rest -> {{:int_keyword, line_keyword}, rest}
         "main" <> rest -> {{:main_keyword, line_keyword}, rest}
