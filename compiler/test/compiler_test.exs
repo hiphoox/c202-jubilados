@@ -7,7 +7,7 @@ defmodule CompilerTest do
   end
 
  test "prueba 2" do
-    assert Compiler.compile_file("examples/invalid/no_space.c") == nil
+    assert Compiler.compile_file("examples/invalid/spaces.c") == nil
   end
 
 end
