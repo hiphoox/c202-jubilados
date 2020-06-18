@@ -92,19 +92,107 @@ defmodule Parser do
   end
 
  def parse_expression([{next_token, num_line} | rest]) do
+    logical_and_expression = parse_logical_and_expression([{next_token, num_line} | rest])
+    {expression_node, logical_and_expression_rest} = logical_and_expression
+    [{next_token, num_line} | rest] = logical_and_expression_rest
+    case next_token do
+      :or_operator ->
+          subTree = %AST{node_name: :or_op}
+          parse_op = parse_logical_and_expression(rest)
+          {node,parse_rest} = parse_op
+          [{next_token,num_line} | rest_op] = parse_rest
+          {%{subTree | left_node: expression_node , right_node: node}, parse_rest}
+      _ -> 
+        logical_and_expression
+    end
+  end
+
+ def parse_logical_and_expression([{next_token, num_line} | rest]) do
+    equality_expression = parse_equality_expression([{next_token, num_line} | rest])
+    {expression_node, equality_expression_rest} = equality_expression
+    [{next_token, num_line} | rest] = equality_expression_rest
+    case next_token do
+      :and_operator ->
+          subTree = %AST{node_name: :and_op}
+          parse_op = parse_equality_expression(rest)
+          {node,parse_rest} = parse_op
+          [{next_token,num_line} | rest_op] = parse_rest
+          {%{subTree | left_node: expression_node , right_node: node}, parse_rest}
+      _ -> 
+        equality_expression
+    end
+  end
+
+ def parse_equality_expression([{next_token, num_line} | rest]) do
+    relational_expression = parse_relational_expression([{next_token, num_line} | rest])
+    {expression_node, relational_expression_rest} = relational_expression
+    [{next_token, num_line} | rest] = relational_expression_rest
+    case next_token do
+      :not_equal_operator ->
+          subTree = %AST{node_name: :not_equal}
+          parse_op = parse_relational_expression(rest)
+          {node,parse_rest} = parse_op
+          [{next_token,num_line} | rest_op] = parse_rest
+          {%{subTree | left_node: expression_node , right_node: node}, parse_rest}
+      :equal_operator -> 
+          subTree = %AST{node_name: :equal}
+          parse_op = parse_relational_expression(rest)
+          {node,parse_rest} = parse_op
+          [{next_token,num_line} | rest_op] = parse_rest
+          {%{subTree | left_node: expression_node , right_node: node}, parse_rest}
+      _ -> 
+        relational_expression
+    end
+  end
+
+  def parse_relational_expression([{next_token, num_line} | rest]) do
+    additive_expression = parse_additive_expression([{next_token, num_line} | rest])
+    {expression_node, additive_expression_rest} = additive_expression
+    [{next_token, num_line} | rest] = additive_expression_rest
+    case next_token do
+      :less_than_operator ->
+          subTree = %AST{node_name: :less_than}
+          parse_op = parse_additive_expression(rest)
+          {node,parse_rest} = parse_op
+          [{next_token,num_line} | rest_op] = parse_rest
+          {%{subTree | left_node: expression_node , right_node: node}, parse_rest}
+      :greater_than_operator -> 
+          subTree = %AST{node_name: :greater_than}
+          parse_op = parse_additive_expression(rest)
+          {node,parse_rest} = parse_op
+          [{next_token,num_line} | rest_op] = parse_rest
+          {%{subTree | left_node: expression_node , right_node: node}, parse_rest}
+      :less_than_or_equal_operator ->
+          subTree = %AST{node_name: :less_than_or_equal}
+          parse_op = parse_additive_expression(rest)
+          {node,parse_rest} = parse_op
+          [{next_token,num_line} | rest_op] = parse_rest
+          {%{subTree | left_node: expression_node , right_node: node}, parse_rest}
+      :greater_than_or_equal_operator -> 
+          subTree = %AST{node_name: :greater_than_or_equal}
+          parse_op = parse_additive_expression(rest)
+          {node,parse_rest} = parse_op
+          [{next_token,num_line} | rest_op] = parse_rest
+          {%{subTree | left_node: expression_node , right_node: node}, parse_rest}
+      _ -> 
+        additive_expression
+    end
+  end
+
+ def parse_additive_expression([{next_token, num_line} | rest]) do
     term = parse_term([{next_token, num_line} | rest])
     {expression_node, term_rest} = term
     [{next_token, num_line} | rest] = term_rest
     case next_token do
       :add_operator ->
           subTree = %AST{node_name: :addition}
-          parse_op = parse_expression(rest)
+          parse_op = parse_term(rest)
           {node,parse_rest} = parse_op
           [{next_token,num_line} | rest_op] = parse_rest
           {%{subTree | left_node: expression_node , right_node: node}, parse_rest}
       :neg_operator -> 
           subTree = %AST{node_name: :substraction}
-          parse_op = parse_expression(rest)
+          parse_op = parse_term(rest)
           {node,parse_rest} = parse_op
           [{next_token,num_line} | rest_op] = parse_rest
           {%{subTree | left_node: expression_node , right_node: node}, parse_rest}

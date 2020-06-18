@@ -408,7 +408,301 @@ defmodule ParserTest do
       {:mult_operator, 1},
       {{:constant, 2}, 1},
       {:close_brace, 2}
-      ], :no_output)}
+      ], :no_output),
+
+       ast_st4: Parser.init_parse([
+       {:int_keyword, 0}, 
+       {:main_keyword, 0}, 
+       {:open_paren, 0}, 
+       {:close_paren, 0}, 
+       {:open_brace, 0}, 
+       {:return_keyword, 1},
+       {{:constant, 1}, 1},
+       {:and_operator, 1},
+       {{:constant, 0}, 1},
+       {:semicolon, 1},
+       {:close_brace, 2}
+       ], :no_output),
+
+       ast_st4_1: Parser.init_parse([
+       {:int_keyword, 0}, 
+       {:main_keyword, 0}, 
+       {:open_paren, 0}, 
+       {:close_paren, 0}, 
+       {:open_brace, 0}, 
+       {:return_keyword, 1},
+       {{:constant, 1}, 1},
+       {:and_operator, 1},
+       {:neg_operator, 1},
+       {{:constant, 1}, 1},
+       {:semicolon, 1},
+       {:close_brace, 2}
+       ], :no_output),
+
+       ast_st4_2: Parser.init_parse([
+       {:int_keyword, 0}, 
+       {:main_keyword, 0}, 
+       {:open_paren, 0}, 
+       {:close_paren, 0}, 
+       {:open_brace, 0}, 
+       {:return_keyword, 1},
+       {{:constant, 1}, 1},
+       {:equal_operator, 1},
+       {{:constant, 2}, 1},
+       {:semicolon, 1},
+       {:close_brace, 2}
+       ], :no_output),
+
+       ast_st4_3: Parser.init_parse([
+       {:int_keyword, 0}, 
+       {:main_keyword, 0}, 
+       {:open_paren, 0}, 
+       {:close_paren, 0}, 
+       {:open_brace, 0}, 
+       {:return_keyword, 1},
+       {{:constant, 1}, 1},
+       {:equal_operator, 1},
+       {{:constant, 1}, 1},
+       {:semicolon, 1},
+       {:close_brace, 2}
+       ], :no_output),
+
+       ast_st4_4: Parser.init_parse([
+       {:int_keyword, 0}, 
+       {:main_keyword, 0}, 
+       {:open_paren, 0}, 
+       {:close_paren, 0}, 
+       {:open_brace, 0}, 
+       {:return_keyword, 1},
+       {{:constant, 1}, 1},
+       {:greater_than_operator, 1},
+       {{:constant, 2}, 1},
+       {:semicolon, 1},
+       {:close_brace, 2}
+       ], :no_output),
+
+       ast_st4_5: Parser.init_parse([
+       {:int_keyword, 0}, 
+       {:main_keyword, 0}, 
+       {:open_paren, 0}, 
+       {:close_paren, 0}, 
+       {:open_brace, 0}, 
+       {:return_keyword, 1},
+       {{:constant, 1}, 1},
+       {:greater_than_operator, 1},
+       {{:constant, 0}, 1},
+       {:semicolon, 1},
+       {:close_brace, 2}
+       ], :no_output),
+
+       ast_st4_6: Parser.init_parse([
+       {:int_keyword, 0}, 
+       {:main_keyword, 0}, 
+       {:open_paren, 0}, 
+       {:close_paren, 0}, 
+       {:open_brace, 0}, 
+       {:return_keyword, 1},
+       {{:constant, 2}, 1},
+       {:less_than_operator, 1},
+       {{:constant, 1}, 1},
+       {:semicolon, 1},
+       {:close_brace, 2}
+       ], :no_output),
+
+       ast_st4_7: Parser.init_parse([
+       {:int_keyword, 0}, 
+       {:main_keyword, 0}, 
+       {:open_paren, 0}, 
+       {:close_paren, 0}, 
+       {:open_brace, 0}, 
+       {:return_keyword, 1},
+       {{:constant, 1}, 1},
+       {:less_than_operator, 1},
+       {{:constant, 2}, 1},
+       {:semicolon, 1},
+       {:close_brace, 2}
+       ], :no_output),
+
+       ast_st4_8: Parser.init_parse([
+       {:int_keyword, 0}, 
+       {:main_keyword, 0}, 
+       {:open_paren, 0}, 
+       {:close_paren, 0}, 
+       {:open_brace, 0}, 
+       {:return_keyword, 1},
+       {{:constant, 0}, 1},
+       {:not_equal_operator, 1},
+       {{:constant, 0}, 1},
+       {:semicolon, 1},
+       {:close_brace, 2}
+       ], :no_output),
+
+       ast_st4_9: Parser.init_parse([
+       {:int_keyword, 0}, 
+       {:main_keyword, 0}, 
+       {:open_paren, 0}, 
+       {:close_paren, 0}, 
+       {:open_brace, 0}, 
+       {:return_keyword, 1},
+       {:neg_operator, 1},
+       {{:constant, 1}, 1},
+       {:not_equal_operator, 1},
+       {:neg_operator, 1},
+       {{:constant, 2}, 1},
+       {:semicolon, 1},
+       {:close_brace, 2}
+       ], :no_output),
+
+       ast_st4_10: Parser.init_parse([
+       {:int_keyword, 0}, 
+       {:main_keyword, 0}, 
+       {:open_paren, 0}, 
+       {:close_paren, 0}, 
+       {:open_brace, 0}, 
+       {:return_keyword, 1},
+       {{:constant, 0}, 1},
+       {:or_operator, 1},
+       {{:constant, 0}, 1},
+       {:semicolon, 1},
+       {:close_brace, 2}
+       ], :no_output),
+
+       ast_st4_11: Parser.init_parse([
+       {:int_keyword, 0}, 
+       {:main_keyword, 0}, 
+       {:open_paren, 0}, 
+       {:close_paren, 0}, 
+       {:open_brace, 0}, 
+       {:return_keyword, 1},
+       {{:constant, 1}, 1},
+       {:or_operator, 1},
+       {{:constant, 0}, 1},
+       {:semicolon, 1},
+       {:close_brace, 2}
+       ], :no_output),
+
+       ast_st4_12: Parser.init_parse([
+       {:int_keyword, 0}, 
+       {:main_keyword, 0}, 
+       {:open_paren, 0}, 
+       {:close_paren, 0}, 
+       {:open_brace, 0}, 
+       {:return_keyword, 1},
+       {{:constant, 1}, 1},
+       {:or_operator, 1},
+       {{:constant, 0}, 1},
+       {:and_operator, 1},
+       {{:constant, 2}, 1},
+       {:semicolon, 1},
+       {:close_brace, 2}
+       ], :no_output),
+
+       ast_st4_13: Parser.init_parse([
+       {:int_keyword, 0}, 
+       {:main_keyword, 0}, 
+       {:open_paren, 0}, 
+       {:close_paren, 0}, 
+       {:open_brace, 0}, 
+       {:return_keyword, 1},
+       {:open_paren, 1},
+       {{:constant, 1}, 1},
+       {:or_operator, 1},
+       {{:constant, 0}, 1},
+       {:close_paren, 1},
+       {:and_operator, 1},
+       {{:constant, 0}, 1},
+       {:semicolon, 1},
+       {:close_brace, 2}
+       ], :no_output),
+
+       ast_st4_14: Parser.init_parse([
+       {:int_keyword, 0}, 
+       {:main_keyword, 0}, 
+       {:open_paren, 0}, 
+       {:close_paren, 0}, 
+       {:open_brace, 0}, 
+       {:return_keyword, 1},
+       {{:constant, 2}, 1},
+       {:equal_operator, 1},
+       {{:constant, 2}, 1},
+       {:greater_than_operator, 1},
+       {{:constant, 0}, 1},
+       {:semicolon, 1},
+       {:close_brace, 2}
+       ], :no_output),
+
+       ast_st4_15: Parser.init_parse([
+       {:int_keyword, 0}, 
+       {:main_keyword, 0}, 
+       {:open_paren, 0}, 
+       {:close_paren, 0}, 
+       {:open_brace, 0}, 
+       {:return_keyword, 1},
+       {{:constant, 2}, 1},
+       {:equal_operator, 1},
+       {{:constant, 2}, 1},
+       {:or_operator, 1},
+       {{:constant, 0}, 1},
+       {:semicolon, 1},
+       {:close_brace, 2}
+       ], :no_output),
+
+       ast_st4_16: Parser.init_parse([
+       {:int_keyword, 0}, 
+       {:main_keyword, 0}, 
+       {:open_paren, 0}, 
+       {:close_paren, 0}, 
+       {:open_brace, 0}, 
+       {:return_keyword, 1},
+       {{:constant, 1}, 1},
+       {:greater_than_or_equal_operator, 1},
+       {{:constant, 2}, 1},
+       {:semicolon, 1},
+       {:close_brace, 2}
+       ], :no_output),
+
+       ast_st4_17: Parser.init_parse([
+       {:int_keyword, 0}, 
+       {:main_keyword, 0}, 
+       {:open_paren, 0}, 
+       {:close_paren, 0}, 
+       {:open_brace, 0}, 
+       {:return_keyword, 1},
+       {{:constant, 1}, 1},
+       {:greater_than_or_equal_operator, 1},
+       {{:constant, 1}, 1},
+       {:semicolon, 1},
+       {:close_brace, 2}
+       ], :no_output),
+
+       ast_st4_18: Parser.init_parse([
+       {:int_keyword, 0}, 
+       {:main_keyword, 0}, 
+       {:open_paren, 0}, 
+       {:close_paren, 0}, 
+       {:open_brace, 0}, 
+       {:return_keyword, 1},
+       {{:constant, 1}, 1},
+       {:less_than_or_equal_operator, 1},
+       {:neg_operator, 1},
+       {{:constant, 1}, 1},
+       {:semicolon, 1},
+       {:close_brace, 2}
+       ], :no_output),
+
+       ast_st4_19: Parser.init_parse([
+       {:int_keyword, 0}, 
+       {:main_keyword, 0}, 
+       {:open_paren, 0}, 
+       {:close_paren, 0}, 
+       {:open_brace, 0}, 
+       {:return_keyword, 1},
+       {{:constant, 0}, 1},
+       {:less_than_or_equal_operator, 1},
+       {{:constant, 2}, 1},
+       {:semicolon, 1},
+       {:close_brace, 2}
+       ], :no_output)}
   end
   
     #Test_to_pass
@@ -777,7 +1071,342 @@ defmodule ParserTest do
       {:semicolon, 1},
       {:close_brace, 2}
       ], :no_output) == state[:ast_binary_op11]
-  end  
+  end
+
+  test "Test 23. And_false", state do
+    assert Parser.init_parse([
+      {:int_keyword, 0}, 
+      {:main_keyword, 0}, 
+      {:open_paren, 0}, 
+      {:close_paren, 0}, 
+      {:open_brace, 0}, 
+      {:return_keyword, 1},
+      {{:constant, 1}, 1},
+      {:and_operator, 1},
+      {{:constant, 0}, 1},
+      {:semicolon, 1},
+      {:close_brace, 2}
+      ], :no_output) == state[:ast_st4]
+  end    
+
+  test "Test 24. And_true", state do
+    assert Parser.init_parse([
+      {:int_keyword, 0}, 
+      {:main_keyword, 0}, 
+      {:open_paren, 0}, 
+      {:close_paren, 0}, 
+      {:open_brace, 0}, 
+      {:return_keyword, 1},
+      {{:constant, 1}, 1},
+      {:and_operator, 1},
+      {:neg_operator, 1},
+      {{:constant, 1}, 1},
+      {:semicolon, 1},
+      {:close_brace, 2}
+      ], :no_output) == state[:ast_st4_1]
+  end
+
+    test "Test 25. Equal_false", state do
+    assert Parser.init_parse([
+      {:int_keyword, 0}, 
+      {:main_keyword, 0}, 
+      {:open_paren, 0}, 
+      {:close_paren, 0}, 
+      {:open_brace, 0}, 
+      {:return_keyword, 1},
+      {{:constant, 1}, 1},
+      {:equal_operator, 1},
+      {{:constant, 2}, 1},
+      {:semicolon, 1},
+      {:close_brace, 2}
+      ], :no_output) == state[:ast_st4_2]
+  end
+
+    test "Test 26. Equal_true", state do
+    assert Parser.init_parse([
+      {:int_keyword, 0}, 
+      {:main_keyword, 0}, 
+      {:open_paren, 0}, 
+      {:close_paren, 0}, 
+      {:open_brace, 0}, 
+      {:return_keyword, 1},
+      {{:constant, 1}, 1},
+      {:equal_operator, 1},
+      {{:constant, 1}, 1},
+      {:semicolon, 1},
+      {:close_brace, 2}
+      ], :no_output) == state[:ast_st4_3]
+  end
+
+    test "Test 27. M_>_false", state do
+    assert Parser.init_parse([
+      {:int_keyword, 0}, 
+      {:main_keyword, 0}, 
+      {:open_paren, 0}, 
+      {:close_paren, 0}, 
+      {:open_brace, 0}, 
+      {:return_keyword, 1},
+      {{:constant, 1}, 1},
+      {:greater_than_operator, 1},
+      {{:constant, 2}, 1},
+      {:semicolon, 1},
+      {:close_brace, 2}
+      ], :no_output) == state[:ast_st4_4]
+  end
+
+    test "Test 28. M_>_true", state do
+    assert Parser.init_parse([
+      {:int_keyword, 0}, 
+      {:main_keyword, 0}, 
+      {:open_paren, 0}, 
+      {:close_paren, 0}, 
+      {:open_brace, 0}, 
+      {:return_keyword, 1},
+      {{:constant, 1}, 1},
+      {:greater_than_operator, 1},
+      {{:constant, 0}, 1},
+      {:semicolon, 1},
+      {:close_brace, 2}
+      ], :no_output) == state[:ast_st4_5]
+  end
+
+    test "Test 29. M_<_false", state do
+    assert Parser.init_parse([
+      {:int_keyword, 0}, 
+      {:main_keyword, 0}, 
+      {:open_paren, 0}, 
+      {:close_paren, 0}, 
+      {:open_brace, 0}, 
+      {:return_keyword, 1},
+      {{:constant, 2}, 1},
+      {:less_than_operator, 1},
+      {{:constant, 1}, 1},
+      {:semicolon, 1},
+      {:close_brace, 2}
+      ], :no_output) == state[:ast_st4_6]
+  end
+
+    test "Test 30. M_<_true", state do
+    assert Parser.init_parse([
+       {:int_keyword, 0}, 
+       {:main_keyword, 0}, 
+       {:open_paren, 0}, 
+       {:close_paren, 0}, 
+       {:open_brace, 0}, 
+       {:return_keyword, 1},
+       {{:constant, 1}, 1},
+       {:less_than_operator, 1},
+       {{:constant, 2}, 1},
+       {:semicolon, 1},
+       {:close_brace, 2}
+      ], :no_output) == state[:ast_st4_7]
+  end
+
+    test "Test 31. M_!=_false", state do
+    assert Parser.init_parse([
+       {:int_keyword, 0}, 
+       {:main_keyword, 0}, 
+       {:open_paren, 0}, 
+       {:close_paren, 0}, 
+       {:open_brace, 0}, 
+       {:return_keyword, 1},
+       {{:constant, 0}, 1},
+       {:not_equal_operator, 1},
+       {{:constant, 0}, 1},
+       {:semicolon, 1},
+       {:close_brace, 2}
+      ], :no_output) == state[:ast_st4_8]
+  end
+
+    test "Test 32. M_!=_true", state do
+    assert Parser.init_parse([
+       {:int_keyword, 0}, 
+       {:main_keyword, 0}, 
+       {:open_paren, 0}, 
+       {:close_paren, 0}, 
+       {:open_brace, 0}, 
+       {:return_keyword, 1},
+       {:neg_operator, 1},
+       {{:constant, 1}, 1},
+       {:not_equal_operator, 1},
+       {:neg_operator, 1},
+       {{:constant, 2}, 1},
+       {:semicolon, 1},
+       {:close_brace, 2}
+       ], :no_output) == state[:ast_st4_9]
+  end
+
+    test "Test 33. M_||_false", state do
+    assert Parser.init_parse([
+       {:int_keyword, 0}, 
+       {:main_keyword, 0}, 
+       {:open_paren, 0}, 
+       {:close_paren, 0}, 
+       {:open_brace, 0}, 
+       {:return_keyword, 1},
+       {{:constant, 0}, 1},
+       {:or_operator, 1},
+       {{:constant, 0}, 1},
+       {:semicolon, 1},
+       {:close_brace, 2}
+       ], :no_output) == state[:ast_st4_10]
+  end
+
+    test "Test 34. M_||_true", state do
+    assert Parser.init_parse([
+       {:int_keyword, 0}, 
+       {:main_keyword, 0}, 
+       {:open_paren, 0}, 
+       {:close_paren, 0}, 
+       {:open_brace, 0}, 
+       {:return_keyword, 1},
+       {{:constant, 1}, 1},
+       {:or_operator, 1},
+       {{:constant, 0}, 1},
+       {:semicolon, 1},
+       {:close_brace, 2}
+       ], :no_output) == state[:ast_st4_11]
+  end
+
+    test "Test 35. Precedence", state do
+    assert Parser.init_parse([
+       {:int_keyword, 0}, 
+       {:main_keyword, 0}, 
+       {:open_paren, 0}, 
+       {:close_paren, 0}, 
+       {:open_brace, 0}, 
+       {:return_keyword, 1},
+       {{:constant, 1}, 1},
+       {:or_operator, 1},
+       {{:constant, 0}, 1},
+       {:and_operator, 1},
+       {{:constant, 2}, 1},
+       {:semicolon, 1},
+       {:close_brace, 2}
+       ], :no_output) == state[:ast_st4_12]
+  end
+
+    test "Test 36. Precedence_2", state do
+    assert Parser.init_parse([
+       {:int_keyword, 0}, 
+       {:main_keyword, 0}, 
+       {:open_paren, 0}, 
+       {:close_paren, 0}, 
+       {:open_brace, 0}, 
+       {:return_keyword, 1},
+       {:open_paren, 1},
+       {{:constant, 1}, 1},
+       {:or_operator, 1},
+       {{:constant, 0}, 1},
+       {:close_paren, 1},
+       {:and_operator, 1},
+       {{:constant, 0}, 1},
+       {:semicolon, 1},
+       {:close_brace, 2}
+       ], :no_output) == state[:ast_st4_13]
+  end
+
+    test "Test 37. Precedence_3", state do
+    assert Parser.init_parse([
+       {:int_keyword, 0}, 
+       {:main_keyword, 0}, 
+       {:open_paren, 0}, 
+       {:close_paren, 0}, 
+       {:open_brace, 0}, 
+       {:return_keyword, 1},
+       {{:constant, 2}, 1},
+       {:equal_operator, 1},
+       {{:constant, 2}, 1},
+       {:greater_than_operator, 1},
+       {{:constant, 0}, 1},
+       {:semicolon, 1},
+       {:close_brace, 2}
+       ], :no_output) == state[:ast_st4_14]
+  end
+
+    test "Test 38. Precedence_4", state do
+    assert Parser.init_parse([
+       {:int_keyword, 0}, 
+       {:main_keyword, 0}, 
+       {:open_paren, 0}, 
+       {:close_paren, 0}, 
+       {:open_brace, 0}, 
+       {:return_keyword, 1},
+       {{:constant, 2}, 1},
+       {:equal_operator, 1},
+       {{:constant, 2}, 1},
+       {:or_operator, 1},
+       {{:constant, 0}, 1},
+       {:semicolon, 1},
+       {:close_brace, 2}
+       ], :no_output) == state[:ast_st4_15]
+  end
+
+    test "Test 39. M_>=_false", state do
+    assert Parser.init_parse([
+       {:int_keyword, 0}, 
+       {:main_keyword, 0}, 
+       {:open_paren, 0}, 
+       {:close_paren, 0}, 
+       {:open_brace, 0}, 
+       {:return_keyword, 1},
+       {{:constant, 1}, 1},
+       {:greater_than_or_equal_operator, 1},
+       {{:constant, 2}, 1},
+       {:semicolon, 1},
+       {:close_brace, 2}
+       ], :no_output) == state[:ast_st4_16]
+  end    
+
+    test "Test 40. M_>=_true", state do
+    assert Parser.init_parse([
+       {:int_keyword, 0}, 
+       {:main_keyword, 0}, 
+       {:open_paren, 0}, 
+       {:close_paren, 0}, 
+       {:open_brace, 0}, 
+       {:return_keyword, 1},
+       {{:constant, 1}, 1},
+       {:greater_than_or_equal_operator, 1},
+       {{:constant, 1}, 1},
+       {:semicolon, 1},
+       {:close_brace, 2}
+       ], :no_output) == state[:ast_st4_17]
+  end    
+
+    test "Test 41. M_<=_false", state do
+    assert Parser.init_parse([
+       {:int_keyword, 0}, 
+       {:main_keyword, 0}, 
+       {:open_paren, 0}, 
+       {:close_paren, 0}, 
+       {:open_brace, 0}, 
+       {:return_keyword, 1},
+       {{:constant, 1}, 1},
+       {:less_than_or_equal_operator, 1},
+       {:neg_operator, 1},
+       {{:constant, 1}, 1},
+       {:semicolon, 1},
+       {:close_brace, 2}
+       ], :no_output) == state[:ast_st4_18]
+  end 
+
+    test "Test 42. M_<=_true", state do
+    assert Parser.init_parse([
+       {:int_keyword, 0}, 
+       {:main_keyword, 0}, 
+       {:open_paren, 0}, 
+       {:close_paren, 0}, 
+       {:open_brace, 0}, 
+       {:return_keyword, 1},
+       {{:constant, 0}, 1},
+       {:less_than_or_equal_operator, 1},
+       {{:constant, 2}, 1},
+       {:semicolon, 1},
+       {:close_brace, 2}
+       ], :no_output) == state[:ast_st4_19]
+  end    
+
 
   #Test_to_Failed
 

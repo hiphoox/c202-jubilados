@@ -122,6 +122,50 @@ defmodule CodeGenerator do
       """
   end
 
+  def emit_code(:less_than, code_snippet, _) do
+    code_snippet <>
+      """
+          push  %eax
+          pop   %ecx
+          cmpl  %eax, %ecx
+          movl  #{code_snippet}, %eax
+          setl  %al
+      """
+  end
+
+  def emit_code(:less_than_or_equal, code_snippet, _) do
+    code_snippet <>
+      """
+          push  %eax
+          pop   %ecx
+          cmpl  %eax, %ecx
+          movl  #{code_snippet}, %eax
+          setle %al
+      """
+  end
+
+    def emit_code(:greater_than, code_snippet, _) do
+    code_snippet <>
+      """
+          push  %eax
+          pop   %ecx
+          cmpl  %eax, %ecx
+          movl  #{code_snippet}, %eax
+          setg  %al
+      """
+  end
+
+  def emit_code(:greater_than_or_equal, code_snippet, _) do
+    code_snippet <>
+      """
+          push  %eax
+          pop   %ecx
+          cmpl  %eax, %ecx
+          movl  #{code_snippet}, %eax
+          setge %al
+      """
+  end
+
   def emit_code(:or_op, code_snippet, _) do
     code_snippet <>
       """

@@ -34,6 +34,10 @@ defmodule Scanner do
         "-"  <> rest  -> {{:neg_operator, line_keyword}, rest}
         "&&" <> rest  -> {{:and_operator, line_keyword},rest}
         "||" <> rest  -> {{:or_operator, line_keyword},rest}
+        "<=" <> rest  -> {{:less_than_or_equal_operator, line_keyword},rest}
+        "<"  <> rest  -> {{:less_than_operator, line_keyword},rest}
+        ">=" <> rest  -> {{:greater_than_or_equal_operator, line_keyword},rest}
+        ">"  <> rest  -> {{:greater_than_operator, line_keyword},rest}
         "==" <> rest  -> {{:equal_operator, line_keyword},rest}
         "!=" <> rest  -> {{:not_equal_operator, line_keyword},rest}
         "!"  <> rest  -> {{:logical_neg_operator, line_keyword}, rest}
